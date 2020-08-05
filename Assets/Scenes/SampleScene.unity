@@ -388,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2e42667488e4634b677e54e152168a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vrmPath: 
+  vrmPath: "/Users/hiragram/Documents/\u30BB\u30EB\u30EB\u30C3\u30AF/zero_lightweight.vrm"
 --- !u!4 &1824513433
 Transform:
   m_ObjectHideFlags: 0

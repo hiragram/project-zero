@@ -3,7 +3,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "ProjectZero"
+        "ProjectZero",
+        "VRM"
     ],
     "includePlatforms": [
         "Editor"
