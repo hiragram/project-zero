@@ -9,7 +9,7 @@ namespace Tests
 {
     public class VRMLoaderTests
     {
-        [Test]
+        // [Test]
         public async void LoadVRMTest() {
             var empty = new GameObject();
             var vrmLoader = empty.AddComponent<VRMLoader>();
@@ -20,6 +20,31 @@ namespace Tests
             Assert.IsNotNull(vrm.GetComponent<VRMBlendShapeProxy>());
             Assert.IsNotNull(vrm.GetComponent<VRMMeta>());
             Assert.IsNotNull(vrm.GetComponent<VRMHumanoidDescription>());
+        }
+
+        [Test]
+        public void OKTest() {
+            Assert.Pass();
+        }
+
+        [Test]
+        public void GomiTest() {
+            Assert.Fail();
+        }
+
+        [Test]
+        public void SaikoTest() {
+            Assert.Pass();
+        }
+
+        [Test]
+        public void BakaGoodTest() {
+            Assert.Pass();
+        }
+
+        [Test]
+        public void BakaTest() {
+            Assert.Fail();
         }
     }
 }
