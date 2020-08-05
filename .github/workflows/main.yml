@@ -10,6 +10,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  UNITY_VERSION: 2020.1.0f1
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -22,12 +25,15 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Unity - Test runner
+      uses: webbertakken/unity-test-runner@v1.6
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    # # Runs a single command using the runners shell
+    # - name: Run a one-line script
+    #   run: echo Hello, world!
+    #
+    # # Runs a set of commands using the runners shell
+    # - name: Run a multi-line script
+    #   run: |
+    #     echo Add other actions to build,
+    #     echo test, and deploy your project.
