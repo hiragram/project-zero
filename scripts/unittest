@@ -1,0 +1,4 @@
+#!/bin/bash;
+
+/Applications/Unity/Hub/Editor/2020.1.0f1/Unity.app/Contents/MacOS/Unity -batchmode -runTests -projectPath . -testPlatform editmode -editorTestsResultFile results.xml
+swift run unity-test-result-taro results.xml
