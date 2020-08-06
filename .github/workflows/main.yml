@@ -28,7 +28,8 @@ jobs:
         submodules: 'recursive'
 
     - name: Run unit test
-      run: ./scripts/test
+      # run: ./scripts/test
+      run: python ./scripts/isatty.py
 
     # # Runs a single command using the runners shell
     # - name: Run a one-line script
