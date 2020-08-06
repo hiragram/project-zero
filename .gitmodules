@@ -1,0 +1,3 @@
+[submodule "scripts/unity-test-result-taro"]
+	path = scripts/unity-test-result-taro
+	url = git@github.com:hiragram/unity-test-result-taro.git
