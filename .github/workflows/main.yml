@@ -10,9 +10,6 @@ on:
   pull_request:
     branches: [ master ]
 
-env:
-  UNITY_VERSION: 2020.1.0f1
-
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -28,6 +25,8 @@ jobs:
         submodules: 'recursive'
 
     - name: Run unit test
+      env:
+        FORCE_ANSI_COLOR: 1
       run: ./scripts/test
 
     # # Runs a single command using the runners shell
