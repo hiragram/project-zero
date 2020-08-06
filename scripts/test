@@ -4,5 +4,7 @@ PROJECT_ROOT=$(cd $(dirname $0); cd ../; pwd)
 
 echo $TERM
 
+python ${PROJECT_ROOT}/scripts/isatty.py
+
 # /Applications/Unity/Hub/Editor/2020.1.0f1/Unity.app/Contents/MacOS/Unity -batchmode -runTests -projectPath . -testPlatform editmode -editorTestsResultFile ${PROJECT_ROOT}/results.xml
 # swift run --package-path=${PROJECT_ROOT}/scripts/unity-test-result-taro unity-test-result-taro ${PROJECT_ROOT}/results.xml
