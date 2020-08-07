@@ -363,12 +363,12 @@ ParentConstraint:
   m_GameObject: {fileID: 4328398339535078028}
   m_Enabled: 1
   m_Weight: 1
-  m_TranslationAtRest: {x: -0.04490267, y: 0.20372653, z: 0.10207774}
-  m_RotationAtRest: {x: -40.65524, y: -87.800224, z: -0.43277875}
+  m_TranslationAtRest: {x: -0.045, y: 0.102, z: 0.118}
+  m_RotationAtRest: {x: -40.65524, y: -87.800224, z: 5.8909445}
   m_TranslationOffsets:
-  - {x: -0.04460475, y: 1.0140914, z: 0.40311444}
+  - {x: -0.044702083, y: 0.9574771, z: 0.42741278}
   m_RotationOffsets:
-  - {x: -40.655254, y: -87.80025, z: -0.43276975}
+  - {x: -40.65526, y: -87.80024, z: 5.8909526}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
   m_AffectTranslationZ: 1
@@ -5398,7 +5398,6 @@ Transform:
   - {fileID: 7544924978103205906}
   - {fileID: 3055765866146050180}
   - {fileID: 4279240085607501481}
-  - {fileID: 8957420258150233778}
   m_Father: {fileID: 5878406956664730229}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9487,6 +9486,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4414870835751544044}
+  - {fileID: 8957420258150233778}
   m_Father: {fileID: 4390299912344313508}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11356,14 +11356,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4328398339535078028}
-  m_LocalRotation: {x: -0.24785247, y: -0.65116, z: -0.24342968, w: 0.67476064}
-  m_LocalPosition: {x: -0.04490267, y: 0.20372653, z: 0.10207774}
-  m_LocalScale: {x: 0.0090000015, y: 0.009, z: 0.009}
+  m_LocalRotation: {x: -0.28339112, y: -0.636498, z: -0.20584142, w: 0.68716025}
+  m_LocalPosition: {x: -0.045, y: 0.102, z: 0.118}
+  m_LocalScale: {x: 0.009000002, y: 0.009, z: 0.009}
   m_Children:
   - {fileID: 2104677788443385122}
-  m_Father: {fileID: 4390299912344313508}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: -40.655, y: -87.8, z: -0.433}
+  m_Father: {fileID: 7544924978103205906}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -40.655, y: -87.8, z: 5.891}
 --- !u!33 &8972717447576062616
 MeshFilter:
   m_ObjectHideFlags: 0
