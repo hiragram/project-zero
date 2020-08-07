@@ -118,17 +118,17 @@ public class IKManager: MonoBehaviour {
             }
         }
 
-        {
-            var bodyPart = HumanBodyBones.Hips;
-            var body = FindTarget(boneLimits, bodyPart);
-            if(body != null) {
-                var cube = AddTargetCube(body);
-                cube.name = string.Format("{0}_target", bodyPart);
-                solver.spine.pelvisTarget = body;
-            } else {
-                Debug.LogFormat("{0} is not found.", bodyPart);
-            }
-        }
+        // {
+        //     var bodyPart = HumanBodyBones.Hips;
+        //     var body = FindTarget(boneLimits, bodyPart);
+        //     if(body != null) {
+        //         var cube = AddTargetCube(body);
+        //         cube.name = string.Format("{0}_target", bodyPart);
+        //         solver.spine.pelvisTarget = body;
+        //     } else {
+        //         Debug.LogFormat("{0} is not found.", bodyPart);
+        //     }
+        // }
     }
 
     private Transform FindTarget(BoneLimit[] boneLimits, HumanBodyBones bone) {
