@@ -21,8 +21,15 @@ public class IKManager: MonoBehaviour {
 
     void SetupVRIK(VRIK vrik) {
         vrik.AutoDetectReferences();
-        vrik.solver.leftLeg.positionWeight = 0.9f;
-        vrik.solver.rightLeg.positionWeight = 0.9f;
+        
+        vrik.solver.leftLeg.positionWeight = 0.99f;
+        vrik.solver.leftLeg.rotationWeight = 0.99f;
+        vrik.solver.rightLeg.positionWeight = 0.99f;
+        vrik.solver.rightLeg.rotationWeight = 0.99f;
+
+        vrik.solver.leftLeg.swivelOffset = -35;
+        vrik.solver.rightLeg.swivelOffset = 35;
+
         vrik.solver.locomotion.weight = 0;
     }
 
@@ -32,9 +39,15 @@ public class IKManager: MonoBehaviour {
 
         {
             var bodyPart = HumanBodyBones.Head;
-            var bone = FindTarget(boneLimits, bodyPart);
-            if(bone != null) {
-                var cube = AddTargetCube(bone);
+            var head = FindTarget(boneLimits, bodyPart);
+            var leftEye = FindTarget(boneLimits, HumanBodyBones.LeftEye);
+            if(head != null) {
+                var cube = AddTargetCube(head);
+                cube.transform.position = new Vector3(
+                    cube.transform.position.x,
+                    leftEye.transform.position.y,
+                    cube.transform.position.z
+                );
                 solver.spine.headTarget = cube.transform;
             } else {
                 Debug.LogFormat("{0} is not found.", bodyPart);
@@ -65,9 +78,15 @@ public class IKManager: MonoBehaviour {
 
         {
             var bodyPart = HumanBodyBones.LeftFoot;
-            var bone = FindTarget(boneLimits, bodyPart);
-            if(bone != null) {
-                var cube = AddTargetCube(bone);
+            var foot = FindTarget(boneLimits, bodyPart);
+            var toe = FindTarget(boneLimits, HumanBodyBones.LeftToes);
+            if(foot != null) {
+                var cube = AddTargetCube(foot);
+                cube.transform.position = new Vector3(
+                    cube.transform.position.x,
+                    cube.transform.position.y,
+                    toe.transform.position.z
+                );
                 solver.leftLeg.target = cube.transform;
             } else {
                 Debug.LogFormat("{0} is not found.", bodyPart);
@@ -76,9 +95,15 @@ public class IKManager: MonoBehaviour {
 
         {
             var bodyPart = HumanBodyBones.RightFoot;
-            var bone = FindTarget(boneLimits, bodyPart);
-            if(bone != null) {
-                var cube = AddTargetCube(bone);
+            var foot = FindTarget(boneLimits, bodyPart);
+            var toe = FindTarget(boneLimits, HumanBodyBones.RightToes);
+            if(foot != null) {
+                var cube = AddTargetCube(foot);
+                cube.transform.position = new Vector3(
+                    cube.transform.position.x,
+                    cube.transform.position.y,
+                    toe.transform.position.z
+                );
                 solver.rightLeg.target = cube.transform;
             } else {
                 Debug.LogFormat("{0} is not found.", bodyPart);
@@ -99,12 +124,12 @@ public class IKManager: MonoBehaviour {
 
         if(found != null) {
             return found;
-        } else if (root.childCount == 0) {
+        } else if(root.childCount == 0) {
             return null;
         } else {
             foreach(var child in root.GetChildren()) {
                 var foundInChild = FindDescendantsRecursively(child, boneName);
-                if (foundInChild != null) {
+                if(foundInChild != null) {
                     return foundInChild;
                 } else {
                     continue;
