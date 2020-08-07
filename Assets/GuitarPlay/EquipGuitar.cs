@@ -26,15 +26,16 @@ public class EquipGuitar: MonoBehaviour {
         {
             var boneLimits = humanoidDesc.Description.human;
             var hip = FindTarget(boneLimits, HumanBodyBones.Hips);
-            // var cube = AddTargetCube(hip);
-            // cube.name = "ConnectionPointBodyA";
-            // cube.transform.position = new Vector3(
-            //     cube.transform.position.x,
-            //     cube.transform.position.y + 0.04f,
-            //     cube.transform.position.z + 0.2f
-            // );
-            // bodySideConnectionPoint = cube;
-            bodySideConnectionPoint = hip.gameObject;
+            var cube = AddTargetCube(hip);
+            cube.name = "ConnectionPointBodyA";
+            cube.transform.position = new Vector3(
+                cube.transform.position.x,
+                cube.transform.position.y + 0.04f,
+                cube.transform.position.z + 0.2f
+            );
+            var rigidBody = cube.AddComponent<Rigidbody>();
+            rigidBody.useGravity = false;
+            bodySideConnectionPoint = cube;
         }
         Assert.IsNotNull(bodySideConnectionPoint);
 
@@ -55,16 +56,9 @@ public class EquipGuitar: MonoBehaviour {
         }
         Assert.IsNotNull(guitarSideConnectionPoint);
 
-        var constraintSource = new ConstraintSource();
-        constraintSource.sourceTransform = bodySideConnectionPoint.transform;
-        constraintSource.weight = 1;
-        var positionConstraint = guitarSideConnectionPoint.AddComponent<ParentConstraint>();
-        {
-            positionConstraint.AddSource(constraintSource);
-            positionConstraint.SetRotationOffset(0, new Vector3(-30, -90, 0));
-            positionConstraint.SetTranslationOffset(0, new Vector3(-0.1f, 0.1f, 0));
-        }
-        positionConstraint.constraintActive = true;
+        var fixedJoint = bodySideConnectionPoint.AddComponent<FixedJoint>();
+        fixedJoint.connectedBody = guitarSideConnectionPoint.GetComponent<Rigidbody>();
+        fixedJoint.connectedMassScale = 0;
     }
 
     private Transform FindTarget(BoneLimit[] boneLimits, HumanBodyBones bone) {
