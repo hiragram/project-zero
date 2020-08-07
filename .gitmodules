@@ -4,3 +4,6 @@
 [submodule "Assets/Plugins"]
 	path = Assets/Plugins
 	url = git@github.com:hiragram/project-zero-plugins.git
+[submodule "Assets/Private"]
+	path = Assets/Private
+	url = git@github.com:hiragram/project-zero-private-assets.git
