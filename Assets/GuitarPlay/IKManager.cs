@@ -30,9 +30,6 @@ public class IKManager: MonoBehaviour {
         vrik.solver.leftLeg.swivelOffset = -35;
         vrik.solver.rightLeg.swivelOffset = 35;
 
-        vrik.solver.spine.pelvisPositionWeight = 0.99f;
-        vrik.solver.spine.pelvisRotationWeight = 0.99f;
-
         vrik.solver.locomotion.weight = 0;
     }
 
@@ -117,18 +114,6 @@ public class IKManager: MonoBehaviour {
                 Debug.LogFormat("{0} is not found.", bodyPart);
             }
         }
-
-        // {
-        //     var bodyPart = HumanBodyBones.Hips;
-        //     var body = FindTarget(boneLimits, bodyPart);
-        //     if(body != null) {
-        //         var cube = AddTargetCube(body);
-        //         cube.name = string.Format("{0}_target", bodyPart);
-        //         solver.spine.pelvisTarget = body;
-        //     } else {
-        //         Debug.LogFormat("{0} is not found.", bodyPart);
-        //     }
-        // }
     }
 
     private Transform FindTarget(BoneLimit[] boneLimits, HumanBodyBones bone) {
@@ -163,7 +148,7 @@ public class IKManager: MonoBehaviour {
     private GameObject AddTargetCube(Transform bodyPart) {
         var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
-        cube.transform.SetParent(transform);
+        cube.transform.SetParent(transform.parent);
         cube.transform.position = bodyPart.transform.position;
         cube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 

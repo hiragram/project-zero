@@ -18,7 +18,7 @@ public class EquipGuitar: MonoBehaviour {
         var humanoidDesc = avatar.GetComponent<VRMHumanoidDescription>();
         Assert.IsNotNull(humanoidDesc, "VRMHumanoidDescription is not found");
 
-        SetupConnectionPoint(humanoidDesc, guitar);
+        // SetupConnectionPoint(humanoidDesc, guitar);
     }
 
     private void SetupConnectionPoint(VRMHumanoidDescription humanoidDesc, GameObject guitar) {
@@ -62,7 +62,7 @@ public class EquipGuitar: MonoBehaviour {
         {
             positionConstraint.AddSource(constraintSource);
             positionConstraint.SetRotationOffset(0, new Vector3(-30, -90, 0));
-            positionConstraint.SetTranslationOffset(0, new Vector3(-0.1f, 0.1f, 0));
+            positionConstraint.SetTranslationOffset(0, new Vector3(-0.1f, 0.1f, 0.1f));
         }
         positionConstraint.constraintActive = true;
     }
