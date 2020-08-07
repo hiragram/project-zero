@@ -30,6 +30,9 @@ public class IKManager: MonoBehaviour {
         vrik.solver.leftLeg.swivelOffset = -35;
         vrik.solver.rightLeg.swivelOffset = 35;
 
+        vrik.solver.spine.pelvisPositionWeight = 0.99f;
+        vrik.solver.spine.pelvisRotationWeight = 0.99f;
+
         vrik.solver.locomotion.weight = 0;
     }
 
@@ -48,6 +51,7 @@ public class IKManager: MonoBehaviour {
                     leftEye.transform.position.y,
                     cube.transform.position.z
                 );
+                cube.name = string.Format("{0}_target", bodyPart);
                 solver.spine.headTarget = cube.transform;
             } else {
                 Debug.LogFormat("{0} is not found.", bodyPart);
@@ -59,6 +63,7 @@ public class IKManager: MonoBehaviour {
             var bone = FindTarget(boneLimits, bodyPart);
             if(bone != null) {
                 var cube = AddTargetCube(bone);
+                cube.name = string.Format("{0}_target", bodyPart);
                 solver.leftArm.target = cube.transform;
             } else {
                 Debug.LogFormat("{0} is not found.", bodyPart);
@@ -70,6 +75,7 @@ public class IKManager: MonoBehaviour {
             var bone = FindTarget(boneLimits, bodyPart);
             if(bone != null) {
                 var cube = AddTargetCube(bone);
+                cube.name = string.Format("{0}_target", bodyPart);
                 solver.rightArm.target = cube.transform;
             } else {
                 Debug.LogFormat("{0} is not found.", bodyPart);
@@ -82,6 +88,7 @@ public class IKManager: MonoBehaviour {
             var toe = FindTarget(boneLimits, HumanBodyBones.LeftToes);
             if(foot != null) {
                 var cube = AddTargetCube(foot);
+                cube.name = string.Format("{0}_target", bodyPart);
                 cube.transform.position = new Vector3(
                     cube.transform.position.x,
                     cube.transform.position.y,
@@ -99,12 +106,25 @@ public class IKManager: MonoBehaviour {
             var toe = FindTarget(boneLimits, HumanBodyBones.RightToes);
             if(foot != null) {
                 var cube = AddTargetCube(foot);
+                cube.name = string.Format("{0}_target", bodyPart);
                 cube.transform.position = new Vector3(
                     cube.transform.position.x,
                     cube.transform.position.y,
                     toe.transform.position.z
                 );
                 solver.rightLeg.target = cube.transform;
+            } else {
+                Debug.LogFormat("{0} is not found.", bodyPart);
+            }
+        }
+
+        {
+            var bodyPart = HumanBodyBones.Hips;
+            var body = FindTarget(boneLimits, bodyPart);
+            if(body != null) {
+                var cube = AddTargetCube(body);
+                cube.name = string.Format("{0}_target", bodyPart);
+                solver.spine.pelvisTarget = body;
             } else {
                 Debug.LogFormat("{0} is not found.", bodyPart);
             }
