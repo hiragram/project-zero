@@ -20,13 +20,25 @@ public class EquipGuitar: MonoBehaviour {
     }
 
     private void SetupLeftHand(GameObject leftHand, GameObject guitarCenter) {
-        var constraintSource = new ConstraintSource();
-        constraintSource.sourceTransform = leftHand.transform;
-        constraintSource.weight = 1;
-        var constraint = guitarCenter.AddComponent<AimConstraint>();
+        {
+            var constraintSource = new ConstraintSource();
+            constraintSource.sourceTransform = leftHand.transform;
+            constraintSource.weight = 1;
+            var constraint = guitarCenter.AddComponent<AimConstraint>();
 
-        constraint.AddSource(constraintSource);
-        constraint.constraintActive = true;
+            constraint.AddSource(constraintSource);
+            constraint.constraintActive = true;
+        }
+
+        {
+            var constraintSource = new ConstraintSource();
+            constraintSource.sourceTransform = guitarCenter.transform;
+            constraintSource.weight = 1;
+            var constraint = leftHand.AddComponent<RotationConstraint>();
+            constraint.rotationOffset = new Vector3(180, 180, -30);
+            constraint.AddSource(constraintSource);
+            constraint.constraintActive = true;
+        }
     }
 
     private Transform FindTarget(BoneLimit[] boneLimits, HumanBodyBones bone) {
