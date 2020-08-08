@@ -11,23 +11,21 @@ public class EquipGuitar: MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        var handGuide = FindDescendantsRecursively(transform, "handGuide")?.gameObject;
+        var guitarCenter = FindDescendantsRecursively(transform, "guitarGravityCenter")?.gameObject;
         var leftHand = FindDescendantsRecursively(transform.parent, "LeftHand_target")?.gameObject;
-        Assert.IsNotNull(handGuide, "Hand guide is not found");
+        Assert.IsNotNull(guitarCenter, "Hand guide is not found");
         Assert.IsNotNull(leftHand, "Left hand is not found");
 
-        SetupLeftHand(leftHand, handGuide);
+        SetupLeftHand(leftHand, guitarCenter);
     }
 
-    private void SetupLeftHand(GameObject leftHand, GameObject handGuide) {
+    private void SetupLeftHand(GameObject leftHand, GameObject guitarCenter) {
         var constraintSource = new ConstraintSource();
-        constraintSource.sourceTransform = handGuide.transform;
+        constraintSource.sourceTransform = leftHand.transform;
         constraintSource.weight = 1;
-        var constraint = leftHand.AddComponent<ParentConstraint>();
+        var constraint = guitarCenter.AddComponent<AimConstraint>();
 
         constraint.AddSource(constraintSource);
-        constraint.SetTranslationOffset(0, new Vector3(0.0f, 0.03f, 0.0f));
-        constraint.SetRotationOffset(0, new Vector3(180, 180, 0));
         constraint.constraintActive = true;
     }
 
