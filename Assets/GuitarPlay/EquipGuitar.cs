@@ -24,11 +24,10 @@ public class EquipGuitar: MonoBehaviour {
         constraintSource.sourceTransform = handGuide.transform;
         constraintSource.weight = 1;
         var constraint = leftHand.AddComponent<ParentConstraint>();
-        {
-            constraint.AddSource(constraintSource);
-            constraint.SetTranslationOffset(0, new Vector3(0.0f, 0.03f, 0.0f));
-            constraint.SetRotationOffset(0, new Vector3(180, 180, 0));
-        }
+
+        constraint.AddSource(constraintSource);
+        constraint.SetTranslationOffset(0, new Vector3(0.0f, 0.03f, 0.0f));
+        constraint.SetRotationOffset(0, new Vector3(180, 180, 0));
         constraint.constraintActive = true;
     }
 
@@ -68,10 +67,5 @@ public class EquipGuitar: MonoBehaviour {
         cube.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
         return cube;
-    }
-
-    // Update is called once per frame
-    void Update() {
-
     }
 }
