@@ -17,6 +17,7 @@ public class IKManager: MonoBehaviour {
         SetupVRIK(vrik);
 
         SetupTargets(humanoidDesc, vrik);
+        Debug.Log("VRIK is ready.");
     }
 
     void SetupVRIK(VRIK vrik) {
@@ -146,7 +147,8 @@ public class IKManager: MonoBehaviour {
     }
 
     private GameObject AddTargetCube(Transform bodyPart) {
-        var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // var cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        var cube = new GameObject();
 
         cube.transform.SetParent(transform.parent);
         cube.transform.position = bodyPart.transform.position;

@@ -8,63 +8,28 @@ using VRM;
 using UnityEngine.Animations;
 
 public class EquipGuitar: MonoBehaviour {
+
     // Start is called before the first frame update
     void Start() {
-        var guitar = gameObject.transform.Find("guitar").gameObject;
-        var avatar = gameObject.transform.Find("avatar").gameObject;
-        Assert.IsNotNull(guitar, "Guitar is not found");
-        Assert.IsNotNull(avatar, "Avatar is not found");
+        var handGuide = FindDescendantsRecursively(transform, "handGuide")?.gameObject;
+        var leftHand = FindDescendantsRecursively(transform.parent, "LeftHand_target")?.gameObject;
+        Assert.IsNotNull(handGuide, "Hand guide is not found");
+        Assert.IsNotNull(leftHand, "Left hand is not found");
 
-        var humanoidDesc = avatar.GetComponent<VRMHumanoidDescription>();
-        Assert.IsNotNull(humanoidDesc, "VRMHumanoidDescription is not found");
-
-        // SetupConnectionPoint(humanoidDesc, guitar);
+        SetupLeftHand(leftHand, handGuide);
     }
 
-    private void SetupConnectionPoint(VRMHumanoidDescription humanoidDesc, GameObject guitar) {
-        GameObject bodySideConnectionPoint;
-        {
-            var boneLimits = humanoidDesc.Description.human;
-            var hip = FindTarget(boneLimits, HumanBodyBones.Hips);
-            // var cube = AddTargetCube(hip);
-            // cube.name = "ConnectionPointBodyA";
-            // cube.transform.position = new Vector3(
-            //     cube.transform.position.x,
-            //     cube.transform.position.y + 0.04f,
-            //     cube.transform.position.z + 0.2f
-            // );
-            // bodySideConnectionPoint = cube;
-            bodySideConnectionPoint = hip.gameObject;
-        }
-        Assert.IsNotNull(bodySideConnectionPoint);
-
-        GameObject guitarSideConnectionPoint;
-        {
-            // var guitarBody = FindDescendantsRecursively(guitar.transform, "body");
-            // var cube = AddTargetCube(guitarBody);
-            // cube.transform.localScale *= 100;
-            // cube.name = "ConnectionPointGuitarA";
-            // cube.transform.position = new Vector3(
-            //     cube.transform.position.x - 0.04f,
-            //     cube.transform.position.y,
-            //     cube.transform.position.z
-            // );
-            // guitarSideConnectionPoint = cube;
-
-            guitarSideConnectionPoint = guitar;
-        }
-        Assert.IsNotNull(guitarSideConnectionPoint);
-
+    private void SetupLeftHand(GameObject leftHand, GameObject handGuide) {
         var constraintSource = new ConstraintSource();
-        constraintSource.sourceTransform = bodySideConnectionPoint.transform;
+        constraintSource.sourceTransform = handGuide.transform;
         constraintSource.weight = 1;
-        var positionConstraint = guitarSideConnectionPoint.AddComponent<ParentConstraint>();
+        var constraint = leftHand.AddComponent<ParentConstraint>();
         {
-            positionConstraint.AddSource(constraintSource);
-            positionConstraint.SetRotationOffset(0, new Vector3(-30, -90, 0));
-            positionConstraint.SetTranslationOffset(0, new Vector3(-0.1f, 0.1f, 0.1f));
+            constraint.AddSource(constraintSource);
+            constraint.SetTranslationOffset(0, new Vector3(0.0f, 0.03f, 0.0f));
+            constraint.SetRotationOffset(0, new Vector3(180, 180, 0));
         }
-        positionConstraint.constraintActive = true;
+        constraint.constraintActive = true;
     }
 
     private Transform FindTarget(BoneLimit[] boneLimits, HumanBodyBones bone) {
