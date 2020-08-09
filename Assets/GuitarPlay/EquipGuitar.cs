@@ -14,43 +14,46 @@ public class EquipGuitar: MonoBehaviour {
     // Start is called before the first frame update
     void Start() {
         Assert.IsNotNull(avatar, "Avatar is not set.");
-        // Debug.Log("start EquipGuitar");
-        // var guitarCenter = FindDescendantsRecursively(transform, "guitarCenter")?.gameObject;
-        // var leftHand = FindDescendantsRecursively(transform, "LeftHand_target")?.gameObject;
-        // Assert.IsNotNull(guitarCenter, "Guitar center is not found");
-        // Assert.IsNotNull(leftHand, "Left hand is not found");
+        var spineBone = FindTarget(avatar, HumanBodyBones.Spine);
+        // var leftHandBone = FindTarget(avatar, HumanBodyBones.LeftThumbProximal);
+        var leftHandBone = FindTarget(avatar, HumanBodyBones.LeftHand);
+        Assert.IsNotNull(spineBone, "Spine is not found.");
+        Assert.IsNotNull(leftHandBone, "Left hand is not found.");
 
-        // SetupConstraints(leftHand, guitarCenter);
+        SetupConstraints(spineBone, leftHandBone);
     }
 
-    private void SetupConstraints(GameObject leftHand, GameObject guitarCenter) {
+    private void SetupConstraints(Transform spineBone, Transform leftHandBone) {
         // {
+        //     var constraint = gameObject.AddComponent<AimConstraint>();
         //     var constraintSource = new ConstraintSource();
-        //     constraintSource.sourceTransform = leftHand.transform;
+        //     constraintSource.sourceTransform = leftHandBone.transform;
         //     constraintSource.weight = 1;
-        //     var constraint = guitarCenter.AddComponent<AimConstraint>();
-
         //     constraint.AddSource(constraintSource);
         //     constraint.constraintActive = true;
         // }
 
         // {
+        //     var constraint = gameObject.AddComponent<ParentConstraint>();
         //     var constraintSource = new ConstraintSource();
-        //     constraintSource.sourceTransform = guitarCenter.transform;
+        //     constraintSource.sourceTransform = spineBone.transform;
         //     constraintSource.weight = 1;
-        //     var constraint = leftHand.AddComponent<RotationConstraint>();
-        //     constraint.rotationOffset = new Vector3(180, 180, -30);
         //     constraint.AddSource(constraintSource);
         //     constraint.constraintActive = true;
+        //     constraint.rotationAxis = Axis.None;
+        //     constraint.translationAtRest = new Vector3(0.0909f, 0.821f, 0.129f);
         // }
     }
 
-    private Transform FindTarget(BoneLimit[] boneLimits, HumanBodyBones bone) {
-        var boneName = boneLimits.First((_bone) => {
+    private Transform FindTarget(GameObject avatar, HumanBodyBones bone) {
+        var humanoidDesc = avatar.GetComponent<VRMHumanoidDescription>();
+        Assert.IsNotNull(humanoidDesc, "VRMHumanoidDescription is not set.");
+        
+        var boneName = humanoidDesc.Description.human.First((_bone) => {
             return _bone.humanBone == bone;
         }).boneName;
 
-        return FindDescendantsRecursively(transform, boneName);
+        return FindDescendantsRecursively(avatar.transform, boneName);
     }
 
     private Transform FindDescendantsRecursively(Transform root, string boneName) {
