@@ -9,36 +9,40 @@ using UnityEngine.Animations;
 
 public class EquipGuitar: MonoBehaviour {
 
+    [SerializeField] GameObject avatar;
+
     // Start is called before the first frame update
     void Start() {
-        var guitarCenter = FindDescendantsRecursively(transform, "guitarGravityCenter")?.gameObject;
-        var leftHand = FindDescendantsRecursively(transform.parent, "LeftHand_target")?.gameObject;
-        Assert.IsNotNull(guitarCenter, "Hand guide is not found");
-        Assert.IsNotNull(leftHand, "Left hand is not found");
+        Assert.IsNotNull(avatar, "Avatar is not set.");
+        // Debug.Log("start EquipGuitar");
+        // var guitarCenter = FindDescendantsRecursively(transform, "guitarCenter")?.gameObject;
+        // var leftHand = FindDescendantsRecursively(transform, "LeftHand_target")?.gameObject;
+        // Assert.IsNotNull(guitarCenter, "Guitar center is not found");
+        // Assert.IsNotNull(leftHand, "Left hand is not found");
 
-        SetupLeftHand(leftHand, guitarCenter);
+        // SetupConstraints(leftHand, guitarCenter);
     }
 
-    private void SetupLeftHand(GameObject leftHand, GameObject guitarCenter) {
-        {
-            var constraintSource = new ConstraintSource();
-            constraintSource.sourceTransform = leftHand.transform;
-            constraintSource.weight = 1;
-            var constraint = guitarCenter.AddComponent<AimConstraint>();
+    private void SetupConstraints(GameObject leftHand, GameObject guitarCenter) {
+        // {
+        //     var constraintSource = new ConstraintSource();
+        //     constraintSource.sourceTransform = leftHand.transform;
+        //     constraintSource.weight = 1;
+        //     var constraint = guitarCenter.AddComponent<AimConstraint>();
 
-            constraint.AddSource(constraintSource);
-            constraint.constraintActive = true;
-        }
+        //     constraint.AddSource(constraintSource);
+        //     constraint.constraintActive = true;
+        // }
 
-        {
-            var constraintSource = new ConstraintSource();
-            constraintSource.sourceTransform = guitarCenter.transform;
-            constraintSource.weight = 1;
-            var constraint = leftHand.AddComponent<RotationConstraint>();
-            constraint.rotationOffset = new Vector3(180, 180, -30);
-            constraint.AddSource(constraintSource);
-            constraint.constraintActive = true;
-        }
+        // {
+        //     var constraintSource = new ConstraintSource();
+        //     constraintSource.sourceTransform = guitarCenter.transform;
+        //     constraintSource.weight = 1;
+        //     var constraint = leftHand.AddComponent<RotationConstraint>();
+        //     constraint.rotationOffset = new Vector3(180, 180, -30);
+        //     constraint.AddSource(constraintSource);
+        //     constraint.constraintActive = true;
+        // }
     }
 
     private Transform FindTarget(BoneLimit[] boneLimits, HumanBodyBones bone) {
@@ -48,6 +52,7 @@ public class EquipGuitar: MonoBehaviour {
 
         return FindDescendantsRecursively(transform, boneName);
     }
+
     private Transform FindDescendantsRecursively(Transform root, string boneName) {
         var found = root.Find(boneName);
 
