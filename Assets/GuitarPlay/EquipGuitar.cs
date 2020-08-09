@@ -62,6 +62,17 @@ public class EquipGuitar: MonoBehaviour {
             constraint.translationAxis = Axis.X | Axis.Y | Axis.Z;
             constraint.rotationAxis = Axis.None;
         }
+
+        {
+            var constraint = leftHandBone.gameObject.AddComponent<RotationConstraint>();
+            var constraintSource = new ConstraintSource();
+            constraintSource.sourceTransform = transform;
+            constraintSource.weight = 1;
+            constraint.AddSource(constraintSource);
+            constraint.constraintActive = true;
+
+            constraint.rotationOffset = new Vector3(180, 90, -90);
+        }
     }
 
     private Transform FindTarget(GameObject avatar, HumanBodyBones bone) {
