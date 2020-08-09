@@ -6,6 +6,7 @@ using UniHumanoid;
 using System.Linq;
 using VRM;
 using UnityEngine.Animations;
+using RootMotion.FinalIK;
 
 public class EquipGuitar: MonoBehaviour {
 
@@ -15,34 +16,52 @@ public class EquipGuitar: MonoBehaviour {
     void Start() {
         Assert.IsNotNull(avatar, "Avatar is not set.");
         var spineBone = FindTarget(avatar, HumanBodyBones.Spine);
-        // var leftHandBone = FindTarget(avatar, HumanBodyBones.LeftThumbProximal);
-        var leftHandBone = FindTarget(avatar, HumanBodyBones.LeftHand);
         Assert.IsNotNull(spineBone, "Spine is not found.");
-        Assert.IsNotNull(leftHandBone, "Left hand is not found.");
 
-        SetupConstraints(spineBone, leftHandBone);
+        var vrik = avatar.GetComponent<VRIK>();
+        Assert.IsNotNull(vrik, "VRIK is not set.");
+        var leftHand = vrik.solver.leftArm.target;
+        Assert.IsNotNull(leftHand, "Left hand is not found.");
+
+        SetupConstraints(spineBone, leftHand);
     }
 
     private void SetupConstraints(Transform spineBone, Transform leftHandBone) {
-        // {
-        //     var constraint = gameObject.AddComponent<AimConstraint>();
-        //     var constraintSource = new ConstraintSource();
-        //     constraintSource.sourceTransform = leftHandBone.transform;
-        //     constraintSource.weight = 1;
-        //     constraint.AddSource(constraintSource);
-        //     constraint.constraintActive = true;
-        // }
+        {
+            var constraint = gameObject.AddComponent<AimConstraint>();
+            var constraintSource = new ConstraintSource();
+            constraintSource.sourceTransform = leftHandBone.transform;
+            constraintSource.weight = 1;
+            constraint.AddSource(constraintSource);
+            constraint.constraintActive = true;
+            
+            constraint.aimVector = new Vector3(0, 0, 1);
+            constraint.upVector = new Vector3(0, 1, 0);
+            constraint.worldUpType = AimConstraint.WorldUpType.SceneUp;
+            constraint.locked = true;
+            constraint.rotationAtRest = new Vector3(0, 0, 0);
+            constraint.rotationOffset = new Vector3(-0.264f, 86.67f, -4.629f);
+            constraint.rotationAxis = Axis.X | Axis.Y | Axis.Z;
+        }
 
-        // {
-        //     var constraint = gameObject.AddComponent<ParentConstraint>();
-        //     var constraintSource = new ConstraintSource();
-        //     constraintSource.sourceTransform = spineBone.transform;
-        //     constraintSource.weight = 1;
-        //     constraint.AddSource(constraintSource);
-        //     constraint.constraintActive = true;
-        //     constraint.rotationAxis = Axis.None;
-        //     constraint.translationAtRest = new Vector3(0.0909f, 0.821f, 0.129f);
-        // }
+        {
+            var constraint = gameObject.AddComponent<ParentConstraint>();
+            var constraintSource = new ConstraintSource();
+            constraintSource.sourceTransform = spineBone.transform;
+            constraintSource.weight = 1;
+            constraint.AddSource(constraintSource);
+            constraint.constraintActive = true;
+            constraint.rotationAxis = Axis.None;
+            constraint.translationAtRest = new Vector3(0.0909f, 0.821f, 0.129f);
+
+            constraint.locked = false;
+            constraint.translationAtRest = new Vector3(0.091f, 0.821f, 0.129f);
+            constraint.rotationAtRest = new Vector3(0, 0, 0);
+            constraint.SetTranslationOffset(0, new Vector3(0.0907f, -0.034f, 0.113f));
+            constraint.SetRotationOffset(0, new Vector3(0, 0, 0));
+            constraint.translationAxis = Axis.X | Axis.Y | Axis.Z;
+            constraint.rotationAxis = Axis.None;
+        }
     }
 
     private Transform FindTarget(GameObject avatar, HumanBodyBones bone) {
