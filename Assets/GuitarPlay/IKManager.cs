@@ -31,6 +31,9 @@ public class IKManager: MonoBehaviour {
         vrik.solver.leftLeg.swivelOffset = -35;
         vrik.solver.rightLeg.swivelOffset = 35;
 
+        vrik.solver.leftArm.swivelOffset = 23;
+        vrik.solver.rightArm.swivelOffset = -23;
+
         vrik.solver.locomotion.weight = 0;
     }
 
