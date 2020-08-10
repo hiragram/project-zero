@@ -55,7 +55,7 @@ public class EquipGuitar: MonoBehaviour {
             constraint.locked = false;
             constraint.translationAtRest = new Vector3(0.091f, 0.821f, 0.129f);
             constraint.rotationAtRest = new Vector3(0, 0, 0);
-            constraint.SetTranslationOffset(0, new Vector3(0.0907f, 0.03f, 0.094f));
+            constraint.SetTranslationOffset(0, new Vector3(0.0907f, 0.03f, 0.114f));
             constraint.SetRotationOffset(0, new Vector3(0, 0, 0));
             constraint.translationAxis = Axis.X | Axis.Y | Axis.Z;
             constraint.rotationAxis = Axis.None;
