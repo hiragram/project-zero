@@ -14,16 +14,14 @@ public class EquipGuitar: MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        Assert.IsNotNull(avatar, "Avatar is not set.");
-        var spineBone = FindTarget(avatar, HumanBodyBones.Spine);
-        Assert.IsNotNull(spineBone, "Spine is not found.");
-
         var vrik = avatar.GetComponent<VRIK>();
         Assert.IsNotNull(vrik, "VRIK is not set.");
         var leftHand = vrik.solver.leftArm.target;
         Assert.IsNotNull(leftHand, "Left hand is not found.");
+        var hip = vrik.solver.spine.pelvisTarget;
+        Assert.IsNotNull(hip, "Pelvis is not found.");
 
-        SetupConstraints(spineBone, leftHand);
+        SetupConstraints(hip, leftHand);
     }
 
     private void SetupConstraints(Transform spineBone, Transform leftHandBone) {
@@ -57,7 +55,7 @@ public class EquipGuitar: MonoBehaviour {
             constraint.locked = false;
             constraint.translationAtRest = new Vector3(0.091f, 0.821f, 0.129f);
             constraint.rotationAtRest = new Vector3(0, 0, 0);
-            constraint.SetTranslationOffset(0, new Vector3(0.0907f, 0.03f, 0.04f));
+            constraint.SetTranslationOffset(0, new Vector3(0.0907f, 0.03f, 0.094f));
             constraint.SetRotationOffset(0, new Vector3(0, 0, 0));
             constraint.translationAxis = Axis.X | Axis.Y | Axis.Z;
             constraint.rotationAxis = Axis.None;
